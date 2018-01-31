@@ -1,0 +1,46 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+
+
+
+<canvas id="canvas" width='800' height='800'></canvas>
+
+
+<script>
+ 
+  $(function(){
+    var img1 = new Image, img2 = new Image, cnt = 2,
+    canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
+    // image loading for demo (ignore)
+    img1.onload = img2.onload = function() {if (!--cnt) go()};
+    img1.src = "assets/png/hoodie2.png";       // hoodie
+    img2.src = "assets/pattern/stealth.jpg";   // pattern
+
+    // MAIN CODE ---
+    function go() {
+
+      // create a pattern  
+      ctx.fillStyle = ctx.createPattern(img2, "repeat");
+      
+      // fill canvas with pattern
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // use blending mode multiply
+      ctx.globalCompositeOperation = "multiply";
+      
+      // draw sofa on top
+      ctx.drawImage(img1, 0, 0, img1.width, img1.height);
+      
+      // change composition mode
+      ctx.globalCompositeOperation = "destination-in";
+      
+      // draw to cut-out sofa
+      //ctx.drawImage(img1, 0, 0, img1.width, img1.height);
+    }
+  })
+
+
+</script>
